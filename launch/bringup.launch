@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="baudrate" default="921600"/>
+  <arg name="frame_id" default="/imu_link"/>
+  <arg name="sensor_com" default="/dev/ttyUSB0"/>
+  <arg name="pub_mag_msg" default="false"/>
+  <arg name="publish_rate" default="100"/>
+
+  <node pkg="hwt9053_ros_driver" type="hwt9053_driver_node" name="hwt9053_driver_node" output="screen">
+    <param name="baudrate"      type="int"      value="$(arg baudrate)"/>
+    <param name="frame_id"      type="string"   value="$(arg frame_id)"/>
+    <param name="sensor_com"    type="string"   value="$(arg sensor_com)"/>
+    <param name="pub_mag_msg"   type="bool"     value="$(arg pub_mag_msg)"/>
+    <param name="publish_rate"  type="int"      value="$(arg publish_rate)"/>
+  </node>
+
+</launch>
