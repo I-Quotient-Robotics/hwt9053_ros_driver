@@ -80,9 +80,9 @@ void HWT9053Driver::loop()
     imu_msg_.angular_velocity.z = int16_t(data[5]) / 32768.0 * 2000.0;
     imu_msg_.angular_velocity_covariance[0] = 0;
 
-    double ang_x = int32_t((data[10] << 16) | data[9]) / 1000.0;
-    double ang_y = int32_t((data[12] << 16) | data[11]) / 1000.0;
-    double ang_z = int32_t((data[14] << 16) | data[13]) / 1000.0;
+    double ang_x = int32_t((data[10] << 16) | data[9]) / 1000.0 * 3.1415926 / 180.0;
+    double ang_y = int32_t((data[12] << 16) | data[11]) / 1000.0 * 3.1415926 / 180.0;
+    double ang_z = int32_t((data[14] << 16) | data[13]) / 1000.0 * 3.1415926 / 180.0;
 
     tf::Quaternion quate;
     quate.setRPY(ang_x, ang_y, ang_z);
