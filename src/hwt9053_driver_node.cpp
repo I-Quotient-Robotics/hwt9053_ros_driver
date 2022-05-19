@@ -73,12 +73,16 @@ void HWT9053Driver::loop()
     imu_msg_.linear_acceleration.x = int16_t(data[0]) / 32768.0 * 16.0 * G;
     imu_msg_.linear_acceleration.y = int16_t(data[1]) / 32768.0 * 16.0 * G;
     imu_msg_.linear_acceleration.z = int16_t(data[2]) / 32768.0 * 16.0 * G;
-    imu_msg_.linear_acceleration_covariance[0] = 0;
+    imu_msg_.linear_acceleration_covariance[0] = 0.01;
+    imu_msg_.linear_acceleration_covariance[4] = 0.01;
+    imu_msg_.linear_acceleration_covariance[8] = 0.01;
 
     imu_msg_.angular_velocity.x = int16_t(data[3]) / 32768.0 * 2000.0;
     imu_msg_.angular_velocity.y = int16_t(data[4]) / 32768.0 * 2000.0;
     imu_msg_.angular_velocity.z = int16_t(data[5]) / 32768.0 * 2000.0;
-    imu_msg_.angular_velocity_covariance[0] = 0;
+    imu_msg_.angular_velocity_covariance[0] = 0.006;
+    imu_msg_.angular_velocity_covariance[4] = 0.006;
+    imu_msg_.angular_velocity_covariance[8] = 0.006;
 
     double ang_x = int32_t((data[10] << 16) | data[9]) / 1000.0 * 3.1415926 / 180.0;
     double ang_y = int32_t((data[12] << 16) | data[11]) / 1000.0 * 3.1415926 / 180.0;
@@ -90,7 +94,9 @@ void HWT9053Driver::loop()
     imu_msg_.orientation.y = quate.y();
     imu_msg_.orientation.z = quate.z();
     imu_msg_.orientation.w = quate.w();
-    imu_msg_.orientation_covariance[0] = 0;
+    imu_msg_.orientation_covariance[0] = 0.001;
+    imu_msg_.orientation_covariance[4] = 0.001;
+    imu_msg_.orientation_covariance[8] = 0.001;
 
     imu_msg_pub_.publish(imu_msg_);
 
@@ -104,7 +110,9 @@ void HWT9053Driver::loop()
       mag_msg_.magnetic_field.y = int16_t(data[7]);
       mag_msg_.magnetic_field.z = int16_t(data[8]);
 
-      mag_msg_.magnetic_field_covariance[0] = 0;
+      mag_msg_.magnetic_field_covariance[0] = 0.001;
+      mag_msg_.magnetic_field_covariance[4] = 0.001;
+      mag_msg_.magnetic_field_covariance[8] = 0.001;
 
       mag_msg_pub_.publish(mag_msg_);
     }
