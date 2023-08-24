@@ -61,7 +61,7 @@ void HWT9053Driver::loop()
   uint8_t ret = 0;
 
   // get Atmospheric humidity and temperature
-  ret = sensor_->GetMultipleRegisters(0x50, 0x0034, 0x0010, data, 1);
+  ret = sensor_->GetMultipleRegisters(0x50, 0x0034, 13, data, 1);
   if (!ret)
     ROS_WARN("get Atmospheric humidity&temperature faild!!");
   else
@@ -84,9 +84,11 @@ void HWT9053Driver::loop()
     imu_msg_.angular_velocity_covariance[4] = 0.006;
     imu_msg_.angular_velocity_covariance[8] = 0.006;
 
-    double ang_x = int32_t((data[10] << 16) | data[9]) / 1000.0 * 3.1415926 / 180.0;
-    double ang_y = int32_t((data[12] << 16) | data[11]) / 1000.0 * 3.1415926 / 180.0;
-    double ang_z = int32_t((data[14] << 16) | data[13]) / 1000.0 * 3.1415926 / 180.0;
+    double ang_x = data[9] / 32768.0 * 3.1415926;
+    double ang_y = data[10] / 32768.0 * 3.1415926;
+    double ang_z = data[11] / 32768.0 * 3.1415926;
+
+    float imu_temp = data[12] / 100.0f;
 
     tf::Quaternion quate;
     quate.setRPY(ang_x, ang_y, ang_z);

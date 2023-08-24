@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="baudrate" default="921600"/>
+  <arg name="baudrate" default="115200"/>
   <arg name="frame_id" default="imu_link"/>
   <arg name="sensor_com" default="/dev/ttyUSB0"/>
   <arg name="pub_mag_msg" default="false"/>
