@@ -77,9 +77,9 @@ void HWT9053Driver::loop()
     imu_msg_.linear_acceleration_covariance[4] = 0.01;
     imu_msg_.linear_acceleration_covariance[8] = 0.01;
 
-    imu_msg_.angular_velocity.x = int16_t(data[3]) / 32768.0 * 2000.0;
-    imu_msg_.angular_velocity.y = int16_t(data[4]) / 32768.0 * 2000.0;
-    imu_msg_.angular_velocity.z = int16_t(data[5]) / 32768.0 * 2000.0;
+    imu_msg_.angular_velocity.x = int16_t(data[3]) / 32768.0 * 2000.0 * 3.1415926 / 180.0;
+    imu_msg_.angular_velocity.y = int16_t(data[4]) / 32768.0 * 2000.0 * 3.1415926 / 180.0;
+    imu_msg_.angular_velocity.z = int16_t(data[5]) / 32768.0 * 2000.0 * 3.1415926 / 180.0;
     imu_msg_.angular_velocity_covariance[0] = 0.006;
     imu_msg_.angular_velocity_covariance[4] = 0.006;
     imu_msg_.angular_velocity_covariance[8] = 0.006;
